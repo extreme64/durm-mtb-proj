@@ -31,7 +31,7 @@ function BarChart({ data }) {
         };
     }, [data]);
 
-    return <canvas ref={chartRef} />;
+    return <canvas style={{ maxHeight: "40vh" }} ref={chartRef} />;
 }
 
 export default BarChart;
