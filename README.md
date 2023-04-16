@@ -34,6 +34,9 @@ Add points of interest (POI) to a trail, including a title, description, geo poi
 - Babel
 - Chart.js v3
 - Jest
+- Leaflet
+- OpenStreetMap
+- Open-Elevation
 
 Installation and Usage
 To install the application, follow these steps:
