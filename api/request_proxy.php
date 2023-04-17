@@ -75,12 +75,24 @@ switch ($requestType) {
             $responseData = ['result' => $elevation];
 
         } else {
-            echo json_encode(['error' => 'Latitude and/or longitude not provided.']);
+            $responseData = ['error' => 'Latitude and/or longitude not provided.'];
         }
         break;
 
-    case 'weather':
-        // handle weather request
+    case 'trails':
+        // Path to your JSON file
+        $json_file = './data/trailsDataGPS.json';
+
+        // Check if file exists
+        if (file_exists($json_file)) {
+            $trailsData = file_get_contents($json_file);
+            $trailsData = str_replace("\r\n", "\n", $trailsData);
+
+            $responseData = ['result' => $trailsData];
+        } else {
+            $error = array('error' => 'File not found.');
+            $responseData = $error;
+        }
         break;
 
     case 'traffic':

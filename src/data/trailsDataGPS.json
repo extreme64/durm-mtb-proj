@@ -1,0 +1,184 @@
+{
+    "trails": [
+        {
+            "name": "proto1",
+            "points": [
+                {
+                    "name": "point1",
+                    "isPOI": true,
+                    "description": "This is a big road gap",
+                    "isPolylinePoint": true,
+                    "workHours": 5,
+                    "position": {
+                        "lan": 49.3444452,
+                        "lng": 19.3444452
+                    }
+                },
+                {
+                    "name": "point2",
+                    "isPOI": false,
+                    "description": "This is a steep descent",
+                    "isPolylinePoint": true,
+                    "workHours": 2,
+                    "position": {
+                        "lan": 49.3444452,
+                        "lng": 19.3444452
+                    }
+                },
+                {
+                    "name": "point3",
+                    "isPOI": true,
+                    "description": "This is a rock garden",
+                    "isPolylinePoint": true,
+                    "workHours": 3,
+                    "position": {
+                        "lan": 49.3444452,
+                        "lng": 19.3444452
+                    }
+                },
+                {
+                    "name": "point4",
+                    "isPOI": false,
+                    "description": "This is a technical section",
+                    "isPolylinePoint": true,
+                    "workHours": 4,
+                    "position": {
+                        "lan": 49.3444452,
+                        "lng": 19.3444452
+                    }
+                },
+                {
+                    "name": "point5",
+                    "isPOI": true,
+                    "description": "This is a big jump",
+                    "isPolylinePoint": true,
+                    "workHours": 6,
+                    "position": {
+                        "lan": 49.3444452,
+                        "lng": 19.3444452
+                    }
+                }
+            ]
+        },
+        {
+            "name": "proto2",
+            "points": [
+                {
+                    "name": "point1",
+                    "isPOI": true,
+                    "description": "This is a big rock drop",
+                    "isPolylinePoint": true,
+                    "workHours": 7,
+                    "position": {
+                        "lan": 49.3444452,
+                        "lng": 19.3444452
+                    }
+                },
+                {
+                    "name": "point2",
+                    "isPOI": false,
+                    "description": "This is a flowy section",
+                    "isPolylinePoint": true,
+                    "workHours": 1,
+                    "position": {
+                        "lan": 49.3444452,
+                        "lng": 19.3444452
+                    }
+                },
+                {
+                    "name": "point3",
+                    "isPOI": true,
+                    "description": "This is a technical climb",
+                    "isPolylinePoint": true,
+                    "workHours": 4,
+                    "position": {
+                        "lan": 49.3444452,
+                        "lng": 19.3444452
+                    }
+                },
+                {
+                    "name": "point4",
+                    "isPOI": false,
+                    "description": "This is a fast descent",
+                    "isPolylinePoint": true,
+                    "workHours": 3,
+                    "position": {
+                        "lan": 49.3444452,
+                        "lng": 19.3444452
+                    }
+                },
+                {
+                    "name": "point5",
+                    "isPOI": true,
+                    "description": "This is a bermed turn",
+                    "isPolylinePoint": true,
+                    "workHours": 2,
+                    "position": {
+                        "lan": 49.3444452,
+                        "lng": 19.3444452
+                    }
+                }
+            ]
+        },
+        {
+            "name": "proto3",
+            "points": [
+                {
+                    "name": "point1",
+                    "isPOI": true,
+                    "description": "This is a technical rock section",
+                    "isPolylinePoint": true,
+                    "workHours": 5,
+                    "position": {
+                        "lan": 49.3444452,
+                        "lng": 19.3444452
+                    }
+                },
+                {
+                    "name": "point2",
+                    "isPOI": false,
+                    "description": "This is a steep climb",
+                    "isPolylinePoint": true,
+                    "workHours": 6,
+                    "position": {
+                        "lan": 49.3444452,
+                        "lng": 19.3444452
+                    }
+                },
+                {
+                    "name": "point3",
+                    "isPOI": true,
+                    "description": "This is a jump line",
+                    "isPolylinePoint": true,
+                    "workHours": 8,
+                    "position": {
+                        "lan": 49.3444452,
+                        "lng": 19.3444452
+                    }
+                },
+                {
+                    "name": "point4",
+                    "isPOI": false,
+                    "description": "This is a technical switchback",
+                    "isPolylinePoint": true,
+                    "workHours": 4,
+                    "position": {
+                        "lan": 49.3444452,
+                        "lng": 19.3444452
+                    }
+                },
+                {
+                    "name": "point5",
+                    "isPOI": false,
+                    "description": "This is a technical switchback",
+                    "isPolylinePoint": true,
+                    "workHours": 4,
+                    "position": {
+                        "lan": 49.3444452,
+                        "lng": 19.3444452
+                    }
+                }
+            ]
+        }
+    ]
+}
