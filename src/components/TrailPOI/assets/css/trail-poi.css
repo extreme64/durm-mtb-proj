@@ -1,0 +1,13 @@
+.leaflet-div-icon--custom {
+    position: absolute;
+    top: -11px;
+    border: 1px solid transparent;
+}
+
+.leaflet-div-icon--custom:is(:hover, :focus) {
+    border: 1px solid whitesmoke;
+}
+
+.leaflet-div-icon--custom:is(:active) {
+    border: 1px solid blueviolet;
+}
