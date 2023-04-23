@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
+import { Marker, Popup } from 'react-leaflet'
+import styled from 'styled-components';
 
-import { getCache, setCache, updateCache, dumpCache } from './../utils/cache';
+import CustomIcon from "./CustomIcon";
+import { getCache, setCache, updateCache, dumpCache } from '../../utils/cache';
 
-function TrailPOI() {
+function TrailPOI(props) {
     const center = {
-        lat: 43.174251672,
-        lng: 19.080044199,
+        lat: props.position[0],
+        lng: props.position[1],
     };
-    const [draggable, setDraggable] = useState(false);
     const [position, setPosition] = useState(center);
+    const [draggable, setDraggable] = useState(false);
     const markerRef = useRef(null);
+
     const eventHandlers = useMemo(
         () => ({
             dragend() {
@@ -25,6 +28,7 @@ function TrailPOI() {
         }),
         []
     );
+
     const toggleDraggable = useCallback(() => {
         setDraggable((d) => !d);
     }, []);
@@ -34,6 +38,8 @@ function TrailPOI() {
         const lng = Number(position.lng.toFixed(3));
         return `Current Latlng: [${lat}...,${lng}...]`;
     };
+
+
 
     useEffect(() => {
  
@@ -51,7 +57,7 @@ function TrailPOI() {
         // REST point to get elevetion for the ask point
         if(!doElevationRequesting) {
             elevation = Number(1781 + Math.random()*10);
-            console.log('Faux elevation', elevation);
+            // console.log('Faux elevation', elevation);
             return
         }
         
@@ -70,15 +76,24 @@ function TrailPOI() {
 
     }, [position]);
 
+    const icon = CustomIcon({ iconType: 'pinS1t1', iconSize: [64, 64] });
+
     return (
         <div>
-            <Marker draggable={draggable} eventHandlers={eventHandlers} position={position} ref={markerRef}>
+            <Marker
+                draggable={draggable} 
+                eventHandlers={eventHandlers} 
+                position={position} 
+                ref={markerRef}
+                autoPan={true}
+                opacity={props.opacity}
+                icon={icon}>
                 <Popup minWidth={90}>
                     <span onClick={toggleDraggable}>
                         {draggable ? 'Draggable. ' + positionPreviewString() : 'Click to make marker draggable!'}
                     </span>
                 </Popup>
-            </Marker>
+            </Marker> 
         </div>
     );
 }

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
-import  TrailPOI from "./TrailPOI";
+import TrailPOI from "./TrailPOI/TrailPOI";
+import CustomIcon from "./TrailPOI/CustomIcon";
 
 
 function TrailMap() {
-    const [count, setCount] = useState(0);
+
     const options = [
         { color: 'orange' },
         { color: 'blue' },
@@ -21,24 +22,6 @@ function TrailMap() {
         return points;
     }
 
-    // Define a function to generate random values for non-position properties
-    function getRandomProperty() {
-        const randDescription = ["This is a big road gap", "A nice spot for a picnic", "A tricky jump", "A steep climb"];
-        const randWorkHours = [2, 3, 4, 5];
-        const randIsPOI = [true, false];
-        const randIsPolylinePoint = [true, false];
-
-        return {
-            description: randDescription[Math.floor(Math.random() * randDescription.length)],
-            workHours: randWorkHours[Math.floor(Math.random() * randWorkHours.length)],
-            isPOI: randIsPOI[Math.floor(Math.random() * randIsPOI.length)],
-            isPolylinePoint: randIsPolylinePoint[Math.floor(Math.random() * randIsPolylinePoint.length)],
-        };
-    }
-
-    useEffect(() => {
-        document.title = `Count: ${count}`;
-    }, [count]);
 
     useEffect(() => {
         const fetchTrails = async () => {
@@ -57,64 +40,47 @@ function TrailMap() {
                 try {
                     const parsed = JSON.parse(data.result)
                     setTrails(parsed.trails.map(trail => formPolyline(trail)));
-
-                    // multiPolyline3.forEach((pos, index) => {
-                    //     const newPoint = {
-                    //         name: `point${index + 1}`,
-                    //         position: {
-                    //             lan: pos[0],
-                    //             lng: pos[1]
-                    //         },
-                    //         ...getRandomProperty()
-                    //     };
-
-                    //     parsed.trails.push(newPoint);
-                    // });
-
-                    // console.log(JSON.stringify(parsed.trails));
                 } catch (error) {
                     console.error('Failed: ', error);
                 }
             });
     }, []);
 
-    
+
+    const icon = CustomIcon({ iconType: 'pinS1t1', iconSize: [64, 64] });
 
     return (
         <div>
-            <p>Count: {count}</p>
-            <button onClick={() => setCount(count + 1)}>Increment</button>
-        
             <MapContainer center={[43.174251672, 19.080044199]} style={{ height: "45vh" }}  zoom={14} scrollWheelZoom={false}>
                 <TileLayer
                     attribution='🔠 &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <TrailPOI />
-
                 {trails.map((trail, index) => (
-                    <Polyline 
-                        key={index}
-                        pathOptions={options[index]} 
-                        positions={trail} 
-                        eventHandlers={{
-                            click: () => {
-                                alert('Polyline clicked')
-                            },
-                        }}>
-                        <Popup>
-                            A pretty Polyline popup. <br /> LimeOptions1 used to customise.
-                        </Popup>
-                    </Polyline>
+                    <div key={`trail-${index}`}>
+                        <Polyline
+                            key={`trail-poly${index}`}
+                            pathOptions={options[index]}
+                            positions={trail}
+                            eventHandlers={{
+                                click: () => {
+                                    alert('Polyline clicked');
+                                },
+                            }}>
+                            <Popup>
+                                A pretty Polyline popup.<br /> LimeOptions1 used to customise.
+                            </Popup>
+                        </Polyline>
+                        {trail.map((point, pIndex) => (
+                            <TrailPOI 
+                                key={`trailPOI-${index}-${pIndex}`} 
+                                position={point}
+                                opacity={0.7}
+                                />
+                        ))}
+                    </div>        
                 ))}
-               
-                <Marker position={[51.505, -0.09]}>
-                    <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </Marker>
             </MapContainer>
-           
         </div>
     );
 }
