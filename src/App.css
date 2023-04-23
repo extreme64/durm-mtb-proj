@@ -1,8 +1,12 @@
+ body {
+     color: bisque;
+     background-color: rgb(27, 26, 25);
+ }
 
-#map {
-    height: 180px;
-}
+ #map {
+     height: 180px;
+ }
 
-.leaflet-attribution-flag {
-    display: none !important;
-}
+ .leaflet-attribution-flag {
+     display: none !important;
+ }
