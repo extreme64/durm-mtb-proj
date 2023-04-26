@@ -14,6 +14,7 @@ function TrailMap() {
     ]
 
     const [trails, setTrails] = useState([]);
+    const [elevations, setElevations] = useState({});
 
     const formPolyline = (trail) => {
         const points = [];
@@ -23,6 +24,34 @@ function TrailMap() {
         return points;
     }
 
+    //TODO: Function to fetch elevation data for a set of points
+    const fetchElevationData = async (points) => {
+        // console.log( points);
+        // const latLngs = points.map(point => `${point[0]},${point[1]}`);
+        // const cacheKey = latLngs.join(';');
+
+        // Check if elevation data is already in cache
+        // if (elevations[cacheKey]) {
+        //     return elevations[cacheKey];
+        // }
+
+        // If not in cache, fetch elevation data from API
+        try {
+            // const response = await fetch(`https://api.example.com/elevation?points=${latLngs.join(',')}`);
+            const data = points //await response.json();
+            
+            // // Update cache with fetched elevation data
+            // setElevations(prevElevations => ({
+                //     ...prevElevations,
+                //     [cacheKey]: data
+                // }));
+         
+            
+            return data;
+        } catch (error) {
+            console.error('Failed to fetch elevation data', error);
+        }
+    };
 
     useEffect(() => {
         const fetchTrails = async () => {
@@ -39,17 +68,28 @@ function TrailMap() {
         fetchTrails()
             .then(data => {
                 try {
+                    
                     const parsed = JSON.parse(data.result)
-                    setTrails(parsed.trails.map(trail => formPolyline(trail)));
+                    setTrails(parsed.trails.map(
+                        trail => {
+                            setElevations(fetchElevationData(trail))
+                            return formPolyline(trail)
+                        })
+                    );
+
                 } catch (error) {
                     console.error('Failed: ', error);
                 }
             });
     }, []);
 
+    const getElevationForTrack = (trackID) => {
+        return trails[trackID]
+    }
+
     return (
         <div>
-            <MapContainer center={[43.174251672, 19.080044199]} style={{ height: "45vh" }}  zoom={14} scrollWheelZoom={false}>
+            <MapContainer center={[43.174251672, 19.080044199]} style={{ height: "45vh" }} zoom={14} scrollWheelZoom={false}>
                 <TileLayer
                     attribution='🔠 &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -62,10 +102,16 @@ function TrailMap() {
                             name={`Text${index}`}
                             trailData={trailData} >
                         </Trail>
-                    </div>        
+                    </div>
                 ))}
             </MapContainer>
-            <HeightProfile />
+            <button
+                onClick={() => fetchElevationData(trails[0])} >
+                    Sync
+                </button>
+            <HeightProfile
+                graphData={getElevationForTrack(0)}
+            />
         </div>
     );
 }
