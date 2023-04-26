@@ -1,5 +1,5 @@
 import './App.css';
-import BarChart from './BarChart';
+// import BarChart from './BarChart';
 import TrailMap from './components/TrailMap';
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
       <header></header>
       <main>
         <TrailMap />
-        <BarChart data={data} />
+        {/* <BarChart data={data} /> */}
       </main>
     </div>
   );

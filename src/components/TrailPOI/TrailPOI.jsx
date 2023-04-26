@@ -11,6 +11,7 @@ function TrailPOI(props) {
         lng: props.position[1],
     };
     const [position, setPosition] = useState(center);
+    const [elevation, setElevation] = useState(0)
     const [draggable, setDraggable] = useState(false);
     const markerRef = useRef(null);
 
@@ -21,6 +22,7 @@ function TrailPOI(props) {
                 if (marker != null) {
                     const newPosition = marker.getLatLng();
                     setPosition(newPosition);
+                    props.onPositionChange(newPosition); // Trigger the callback function with the new position
                     /* invalidate cache for the new position */
                     updateCache(`elevation_${newPosition.lat}_${newPosition.lng}`, null); 
                 }
@@ -46,7 +48,6 @@ function TrailPOI(props) {
         const cacheKey = `elevation_${position.lat}_${position.lng}`;
         const cachedElevation = getCache(cacheKey);
         const doElevationRequesting = false //TODO: Put flag 'doElevationRequesting' in .env
-        let elevation
 
         /* Use cached elevation */
         if (cachedElevation !== undefined) {
@@ -56,8 +57,7 @@ function TrailPOI(props) {
         
         // REST point to get elevetion for the ask point
         if(!doElevationRequesting) {
-            elevation = Number(1781 + Math.random()*10);
-            // console.log('Faux elevation', elevation);
+            setElevation(Number(1781 + Math.random()*10));
             return
         }
         
@@ -67,7 +67,7 @@ function TrailPOI(props) {
             .then((data) => {
                 console.log('Fetched data via. proxy', data.result);
                 // TODO: elevations to a global store
-                const elevation = data.result;
+                setElevation(data.result);
                 setCache(cacheKey, elevation); // save elevation to cache
             })
             .catch((error) => console.log(error));
@@ -81,10 +81,10 @@ function TrailPOI(props) {
     return (
         <div>
             <Marker
+                ref={markerRef}
                 draggable={draggable} 
                 eventHandlers={eventHandlers} 
-                position={position} 
-                ref={markerRef}
+                position={position}
                 autoPan={true}
                 opacity={props.opacity}
                 icon={icon}>

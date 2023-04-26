@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
-import TrailPOI from "./TrailPOI/TrailPOI";
-import CustomIcon from "./TrailPOI/CustomIcon";
+import { MapContainer, TileLayer, Popup, Polyline } from 'react-leaflet'
+import HeightProfile from './HeightProfile/HeightProfile';
+
+import Trail from "./Trail";
 
 
 function TrailMap() {
@@ -46,9 +47,6 @@ function TrailMap() {
             });
     }, []);
 
-
-    const icon = CustomIcon({ iconType: 'pinS1t1', iconSize: [64, 64] });
-
     return (
         <div>
             <MapContainer center={[43.174251672, 19.080044199]} style={{ height: "45vh" }}  zoom={14} scrollWheelZoom={false}>
@@ -56,31 +54,18 @@ function TrailMap() {
                     attribution='🔠 &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                {trails.map((trail, index) => (
+                {trails.map((trailData, index) => (
                     <div key={`trail-${index}`}>
-                        <Polyline
+                        <Trail
                             key={`trail-poly${index}`}
                             pathOptions={options[index]}
-                            positions={trail}
-                            eventHandlers={{
-                                click: () => {
-                                    alert('Polyline clicked');
-                                },
-                            }}>
-                            <Popup>
-                                A pretty Polyline popup.<br /> LimeOptions1 used to customise.
-                            </Popup>
-                        </Polyline>
-                        {trail.map((point, pIndex) => (
-                            <TrailPOI 
-                                key={`trailPOI-${index}-${pIndex}`} 
-                                position={point}
-                                opacity={0.7}
-                                />
-                        ))}
+                            name={`Text${index}`}
+                            trailData={trailData} >
+                        </Trail>
                     </div>        
                 ))}
             </MapContainer>
+            <HeightProfile />
         </div>
     );
 }
