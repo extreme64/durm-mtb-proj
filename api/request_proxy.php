@@ -22,9 +22,9 @@ $responseData = '';
 switch ($requestType) {
     case 'elevation':
 
-        if (isset($_GET['lat']) && isset($_GET['lng'])) {
-            $lat = $_GET['lat'];
-            $lng = $_GET['lng'];
+        if (isset($_GET['points'])) {
+            $points = $_GET['points'];
+         
 
             // Response object structure
             // Max 100 loc/r. 
@@ -66,11 +66,31 @@ switch ($requestType) {
             $interpolation = 'interpolation=cubic';
 
             // Request elevation from OpenTopoData API
-            $url = "https://api.opentopodata.org/v1/eudem25m?locations=$lat,$lng&$$interpolation";
+            $url = "https://api.opentopodata.org/v1/eudem25m?locations=$points&$interpolation";
 
-            $response = file_get_contents($url);
-            $json = json_decode($response);
-            $elevation = $json->results[0]->elevation;
+            $elevation = '';
+            try {
+                $response = @file_get_contents($url);
+                $headers = @get_headers($url);
+
+                if ($response === false || $headers === false) {
+                    throw new Exception("Error Sending Request", 1);
+                } else {
+                    $status = substr($headers[0], 9, 3);
+                    if ($status === '200') {
+                        // request succeeded, do something with $response
+                    } else {
+                        // request failed with status $status
+                    }
+                }
+                $json = json_decode($response);
+                $elevation = $json->results;
+            } catch (\Throwable $th) {
+                if ($th->getCode() == 429) {
+                    // Log 429 error
+                    $$elevation = ['result' => 'Error code 429'];
+                }
+            }
 
             $responseData = ['result' => $elevation];
 
@@ -81,10 +101,17 @@ switch ($requestType) {
 
     case 'trails':
         // Path to your JSON file
+        
         $json_file = './data/trailsDataGPS.json';
+
+        if(isset($_GET['clear']))
+        {
+            opcache_invalidate('./data/trailsDataGPS.json', false);
+        } 
 
         // Check if file exists
         if (file_exists($json_file)) {
+            
             $trailsData = file_get_contents($json_file);
             $trailsData = str_replace("\r\n", "\n", $trailsData);
 

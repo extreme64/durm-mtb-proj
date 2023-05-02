@@ -6,7 +6,7 @@
                 {
                     "name": "point1",
                     "position": {
-                        "lan": 43.174251672,
+                        "lat": 43.174251672,
                         "lng": 19.080044199
                     },
                     "description": "A steep climb",
@@ -17,7 +17,7 @@
                 {
                     "name": "point2",
                     "position": {
-                        "lan": 43.174369102,
+                        "lat": 43.174369102,
                         "lng": 19.083708348
                     },
                     "description": "A nice spot for a picnic",
@@ -28,7 +28,7 @@
                 {
                     "name": "point3",
                     "position": {
-                        "lan": 43.174890876,
+                        "lat": 43.174890876,
                         "lng": 19.084173292
                     },
                     "description": "A tricky jump",
@@ -39,7 +39,7 @@
                 {
                     "name": "point4",
                     "position": {
-                        "lan": 43.174414113,
+                        "lat": 43.174414113,
                         "lng": 19.084914839
                     },
                     "description": "A tricky jump",
@@ -50,7 +50,7 @@
                 {
                     "name": "point5",
                     "position": {
-                        "lan": 43.173956457,
+                        "lat": 43.173956457,
                         "lng": 19.085725581
                     },
                     "description": "This is a big road gap",
@@ -61,7 +61,7 @@
                 {
                     "name": "point6",
                     "position": {
-                        "lan": 43.17349202,
+                        "lat": 43.17349202,
                         "lng": 19.086744944
                     },
                     "description": "A nice spot for a picnic",
@@ -72,7 +72,7 @@
                 {
                     "name": "point7",
                     "position": {
-                        "lan": 43.174151592,
+                        "lat": 43.174151592,
                         "lng": 19.088966399
                     },
                     "description": "This is a big road gap",
@@ -83,7 +83,7 @@
                 {
                     "name": "point8",
                     "position": {
-                        "lan": 43.17377449,
+                        "lat": 43.17377449,
                         "lng": 19.091266226
                     },
                     "description": "A steep climb",
@@ -94,7 +94,7 @@
                 {
                     "name": "point9",
                     "position": {
-                        "lan": 43.173876917,
+                        "lat": 43.173876917,
                         "lng": 19.092538347
                     },
                     "description": "A steep climb",
@@ -105,7 +105,7 @@
                 {
                     "name": "point10",
                     "position": {
-                        "lan": 43.172953734,
+                        "lat": 43.172953734,
                         "lng": 19.094952587
                     },
                     "description": "This is a big road gap",
@@ -116,7 +116,7 @@
                 {
                     "name": "point11",
                     "position": {
-                        "lan": 43.171682283,
+                        "lat": 43.171682283,
                         "lng": 19.098714804
                     },
                     "description": "A nice spot for a picnic",
@@ -127,7 +127,7 @@
                 {
                     "name": "point12",
                     "position": {
-                        "lan": 43.171431413,
+                        "lat": 43.171431413,
                         "lng": 19.096261924
                     },
                     "description": "A steep climb",
@@ -138,7 +138,7 @@
                 {
                     "name": "point13",
                     "position": {
-                        "lan": 43.168995464,
+                        "lat": 43.168995464,
                         "lng": 19.096286399
                     },
                     "description": "A tricky jump",
@@ -149,7 +149,7 @@
                 {
                     "name": "point14",
                     "position": {
-                        "lan": 43.167983685,
+                        "lat": 43.167983685,
                         "lng": 19.096867768
                     },
                     "description": "A steep climb",
@@ -160,7 +160,7 @@
                 {
                     "name": "point15",
                     "position": {
-                        "lan": 43.16692505,
+                        "lat": 43.16692505,
                         "lng": 19.098236952
                     },
                     "description": "A steep climb",
@@ -171,7 +171,7 @@
                 {
                     "name": "point16",
                     "position": {
-                        "lan": 43.166196914,
+                        "lat": 43.166196914,
                         "lng": 19.099146221
                     },
                     "description": "A steep climb",
@@ -182,7 +182,7 @@
                 {
                     "name": "point17",
                     "position": {
-                        "lan": 43.165918635,
+                        "lat": 43.165918635,
                         "lng": 19.101901604
                     },
                     "description": "A steep climb",
@@ -193,7 +193,7 @@
                 {
                     "name": "point18",
                     "position": {
-                        "lan": 43.164408049,
+                        "lat": 43.164408049,
                         "lng": 19.103642525
                     },
                     "description": "A steep climb",
@@ -209,7 +209,7 @@
                 {
                     "name": "point1",
                     "position": {
-                        "lan": 43.174251672,
+                        "lat": 43.174251672,
                         "lng": 19.080044198999985
                     },
                     "description": "This is a big road gap",
@@ -220,7 +220,7 @@
                 {
                     "name": "point2",
                     "position": {
-                        "lan": 43.174369102,
+                        "lat": 43.174369102,
                         "lng": 19.08370834799996
                     },
                     "description": "A nice spot for a picnic",
@@ -231,7 +231,7 @@
                 {
                     "name": "point3",
                     "position": {
-                        "lan": 43.175047359854084,
+                        "lat": 43.175047359854084,
                         "lng": 19.084473699409727
                     },
                     "description": "A steep climb",
@@ -242,7 +242,7 @@
                 {
                     "name": "point4",
                     "position": {
-                        "lan": 43.174414113,
+                        "lat": 43.174414113,
                         "lng": 19.08491483900002
                     },
                     "description": "A nice spot for a picnic",
@@ -253,7 +253,7 @@
                 {
                     "name": "point5",
                     "position": {
-                        "lan": 43.17395645700002,
+                        "lat": 43.17395645700002,
                         "lng": 19.085811411688496
                     },
                     "description": "A nice spot for a picnic",
@@ -264,7 +264,7 @@
                 {
                     "name": "point6",
                     "position": {
-                        "lan": 43.17349202,
+                        "lat": 43.17349202,
                         "lng": 19.086744943999975
                     },
                     "description": "A nice spot for a picnic",
@@ -275,7 +275,7 @@
                 {
                     "name": "point7",
                     "position": {
-                        "lan": 43.17396380857255,
+                        "lat": 43.17396380857255,
                         "lng": 19.088880568311538
                     },
                     "description": "A tricky jump",
@@ -286,7 +286,7 @@
                 {
                     "name": "point8",
                     "position": {
-                        "lan": 43.17364930033946,
+                        "lat": 43.17364930033946,
                         "lng": 19.090965818590348
                     },
                     "description": "This is a big road gap",
@@ -297,7 +297,7 @@
                 {
                     "name": "point9",
                     "position": {
-                        "lan": 43.17243722282442,
+                        "lat": 43.17243722282442,
                         "lng": 19.09185170149226
                     },
                     "description": "A steep climb",
@@ -308,7 +308,7 @@
                 {
                     "name": "point10",
                     "position": {
-                        "lan": 43.17254686119686,
+                        "lat": 43.17254686119686,
                         "lng": 19.092935565820767
                     },
                     "description": "A steep climb",
@@ -319,7 +319,7 @@
                 {
                     "name": "point11",
                     "position": {
-                        "lan": 43.17190088995291,
+                        "lat": 43.17190088995291,
                         "lng": 19.0945453102305
                     },
                     "description": "A tricky jump",
@@ -330,7 +330,7 @@
                 {
                     "name": "point12",
                     "position": {
-                        "lan": 43.17043523930827,
+                        "lat": 43.17043523930827,
                         "lng": 19.09517060004987
                     },
                     "description": "A tricky jump",
@@ -341,7 +341,7 @@
                 {
                     "name": "point13",
                     "position": {
-                        "lan": 43.168515788642495,
+                        "lat": 43.168515788642495,
                         "lng": 19.09806939763871
                     },
                     "description": "This is a big road gap",
@@ -352,7 +352,7 @@
                 {
                     "name": "point14",
                     "position": {
-                        "lan": 43.168427474390136,
+                        "lat": 43.168427474390136,
                         "lng": 19.09969607370408
                     },
                     "description": "A steep climb",
@@ -363,7 +363,7 @@
                 {
                     "name": "point15",
                     "position": {
-                        "lan": 43.167793257716106,
+                        "lat": 43.167793257716106,
                         "lng": 19.100948665457963
                     },
                     "description": "This is a big road gap",
@@ -374,7 +374,7 @@
                 {
                     "name": "point16",
                     "position": {
-                        "lan": 43.16666986419123,
+                        "lat": 43.16666986419123,
                         "lng": 19.102759910884743
                     },
                     "description": "A steep climb",
@@ -385,7 +385,7 @@
                 {
                     "name": "point17",
                     "position": {
-                        "lan": 43.16550361557406,
+                        "lat": 43.16550361557406,
                         "lng": 19.104243339819277
                     },
                     "description": "A tricky jump",
@@ -401,7 +401,7 @@
                 {
                     "name": "point1",
                     "position": {
-                        "lan": 43.174251672,
+                        "lat": 43.174251672,
                         "lng": 19.080044198999985
                     },
                     "description": "A tricky jump",
@@ -412,7 +412,7 @@
                 {
                     "name": "point2",
                     "position": {
-                        "lan": 43.174369102,
+                        "lat": 43.174369102,
                         "lng": 19.08370834799996
                     },
                     "description": "This is a big road gap",
@@ -423,7 +423,7 @@
                 {
                     "name": "point3",
                     "position": {
-                        "lan": 43.1750786565768,
+                        "lat": 43.1750786565768,
                         "lng": 19.084473699409727
                     },
                     "description": "A tricky jump",
@@ -434,7 +434,7 @@
                 {
                     "name": "point4",
                     "position": {
-                        "lan": 43.174414113,
+                        "lat": 43.174414113,
                         "lng": 19.08491483900002
                     },
                     "description": "A steep climb",
@@ -445,7 +445,7 @@
                 {
                     "name": "point5",
                     "position": {
-                        "lan": 43.17439461748531,
+                        "lat": 43.17439461748531,
                         "lng": 19.08598307306545
                     },
                     "description": "A tricky jump",
@@ -456,7 +456,7 @@
                 {
                     "name": "point6",
                     "position": {
-                        "lan": 43.17349202,
+                        "lat": 43.17349202,
                         "lng": 19.086744943999975
                     },
                     "description": "A nice spot for a picnic",
@@ -467,7 +467,7 @@
                 {
                     "name": "point7",
                     "position": {
-                        "lan": 43.173118776003335,
+                        "lat": 43.173118776003335,
                         "lng": 19.087893515394057
                     },
                     "description": "A steep climb",
@@ -478,7 +478,7 @@
                 {
                     "name": "point8",
                     "position": {
-                        "lan": 43.172679071768954,
+                        "lat": 43.172679071768954,
                         "lng": 19.089850019640153
                     },
                     "description": "This is a big road gap",
@@ -489,7 +489,7 @@
                 {
                     "name": "point9",
                     "position": {
-                        "lan": 43.17174866143861,
+                        "lat": 43.17174866143861,
                         "lng": 19.091250886672924
                     },
                     "description": "A nice spot for a picnic",
@@ -500,7 +500,7 @@
                 {
                     "name": "point10",
                     "position": {
-                        "lan": 43.17085674515324,
+                        "lat": 43.17085674515324,
                         "lng": 19.09237766634567
                     },
                     "description": "A tricky jump",
@@ -511,7 +511,7 @@
                 {
                     "name": "point11",
                     "position": {
-                        "lan": 43.16952216954571,
+                        "lat": 43.16952216954571,
                         "lng": 19.09334368059183
                     },
                     "description": "A tricky jump",
@@ -522,7 +522,7 @@
                 {
                     "name": "point12",
                     "position": {
-                        "lan": 43.16824426340966,
+                        "lat": 43.16824426340966,
                         "lng": 19.093754393690006
                     },
                     "description": "A nice spot for a picnic",
@@ -533,7 +533,7 @@
                 {
                     "name": "point13",
                     "position": {
-                        "lan": 43.168359288052365,
+                        "lat": 43.168359288052365,
                         "lng": 19.0968248526558
                     },
                     "description": "A nice spot for a picnic",
@@ -544,7 +544,7 @@
                 {
                     "name": "point14",
                     "position": {
-                        "lan": 43.16827097357373,
+                        "lat": 43.16827097357373,
                         "lng": 19.099824819736796
                     },
                     "description": "A steep climb",
@@ -555,7 +555,7 @@
                 {
                     "name": "point15",
                     "position": {
-                        "lan": 43.167605454738336,
+                        "lat": 43.167605454738336,
                         "lng": 19.101377818900346
                     },
                     "description": "A tricky jump",
@@ -566,7 +566,7 @@
                 {
                     "name": "point16",
                     "position": {
-                        "lan": 43.16673246620682,
+                        "lat": 43.16673246620682,
                         "lng": 19.102674080196266
                     },
                     "description": "This is a big road gap",
@@ -577,7 +577,7 @@
                 {
                     "name": "point17",
                     "position": {
-                        "lan": 43.16553491718748,
+                        "lat": 43.16553491718748,
                         "lng": 19.104286255163515
                     },
                     "description": "This is a big road gap",
