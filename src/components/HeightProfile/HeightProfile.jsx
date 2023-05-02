@@ -1,45 +1,17 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import BarChart from './BarChart';
 
-function HeightProfile(trailData) {
-    
-    const labels = []
-    const values = []
+function HeightProfile(profileData) {
     
     const [data, setData] = useState([])
               
     useEffect(() => {
-        
-        const gData = trailData.graphData
-        
-        if (typeof gData === "undefined") return
-        
-        let pointsObj = new Map()
-        gData.forEach((point, index) => {
-            const lab = `Point${index}`
-            const val = Number((1781 + Math.random() * 20) - (index*16))
-            pointsObj.set(`index${index}`, {
-                pointID: index,
-                label: lab,
-                value: val
-            })
-            labels.push(lab)
-            values.push(val)
 
-            // setElevations(prevElevations => ({
-            //     ...prevElevations,
-            // }));
-        })
-        console.log("pointsObj", pointsObj);
+        if (typeof profileData.graphData === "undefined") return
+        
+        setData(profileData.graphData);
 
-        setData( {
-            title: 'Height(m)',
-            labels: labels,
-            values: values,
-            colors: ['#3cba9f', '#3cba9f', '#3cba9f', '#3cba9f', '#3cba9f', '#3cba9f', '#3cba9f'],
-        });
-
-    }, [trailData])
+    }, [profileData])
 
 
     return (

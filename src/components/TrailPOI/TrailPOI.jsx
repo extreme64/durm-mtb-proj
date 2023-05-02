@@ -3,6 +3,8 @@ import { Marker, Popup } from 'react-leaflet'
 import styled from 'styled-components';
 
 import CustomIcon from "./CustomIcon";
+
+
 import { getCache, setCache, updateCache, dumpCache } from '../../utils/cache';
 
 function TrailPOI(props) {
@@ -22,7 +24,7 @@ function TrailPOI(props) {
                 if (marker != null) {
                     const newPosition = marker.getLatLng();
                     setPosition(newPosition);
-                    props.onPositionChange(newPosition); // Trigger the callback function with the new position
+                    props.onPositionChange(newPosition, props.id); // Trigger the callback function with the new position
                     /* invalidate cache for the new position */
                     updateCache(`elevation_${newPosition.lat}_${newPosition.lng}`, null); 
                 }
