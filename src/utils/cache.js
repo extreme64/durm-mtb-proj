@@ -1,9 +1,14 @@
 // cache.js
 
 let cache = {};
+let cacheHits = 0;
 
 export const hasKey = (key) => {
-    return cache.hasOwn(key)
+    let keyInCache = false
+    if (typeof cache === 'undefined') return keyInCache
+    keyInCache = cache.hasOwnProperty(key)
+    if (keyInCache) cacheHits++
+    return keyInCache
 }
 
 export const getCache = (key) => {
@@ -33,5 +38,9 @@ export const clearCache = () => {
 };
 
 export const dumpCache = () => {
-    console.log("Elev. cache:", cache);
+    console.log("Cache:", cache);
+};
+
+export const dumpCacheHits = () => {
+    console.log("Cache: hits", cacheHits);
 };
