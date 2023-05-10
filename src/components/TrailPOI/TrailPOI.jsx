@@ -43,41 +43,6 @@ function TrailPOI(props) {
         return `Current Latlng: [${lat}...,${lng}...]`;
     };
 
-
-
-    useEffect(() => {
- 
-        const cacheKey = `elevation_${position.lat}_${position.lng}`;
-        const cachedElevation = getCache(cacheKey);
-        const doElevationRequesting = false //TODO: Put flag 'doElevationRequesting' in .env
-
-        /* Use cached elevation */
-        if (cachedElevation !== undefined) {
-            console.log('Cached elevation', cachedElevation);
-            return; 
-        }
-        
-        // REST point to get elevetion for the ask point
-        if(!doElevationRequesting) {
-            setElevation(Number(1781 + Math.random()*10));
-            return
-        }
-        
-        const url = `http://localhost:80/durm-mtb-proj/api/request_proxy.php?request_type=elevation&lat=${position.lat}&lng=${position.lng}`;
-        fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('Fetched data via. proxy', data.result);
-                // TODO: elevations to a global store
-                setElevation(data.result);
-                setCache(cacheKey, elevation); // save elevation to cache
-            })
-            .catch((error) => console.log(error));
-
-        dumpCache()
-
-    }, [position]);
-
     const icon = CustomIcon({ iconType: 'pinS1t1', iconSize: [64, 64] });
 
     return (

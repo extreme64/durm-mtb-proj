@@ -4,6 +4,7 @@ import HeightProfile from './HeightProfile/HeightProfile';
 import TrailPOI from './TrailPOI/TrailPOI';
 
 import { fetchTrails, polyOptions, formPolyline, fetchElevationData, craftTrailHeightProfile } from "./Trail";
+import { dumpCache, dumpCacheHits, insertKey, hasKey } from '../utils/cache';
 
 
 function TrailMap() {
@@ -19,7 +20,7 @@ function TrailMap() {
     const [elevations, setElevations] = useState({});
     const [elevationsRequested, setElevationsRequested] = useState(false)
 
-    const [cueUpPoints, setcueUpPointss] = useState([])
+    const [cueUpPoints, setCueUpPoints] = useState([])
 
     const selectTrail = (index) => {
         setTrailCurrent(index);       
@@ -31,9 +32,13 @@ function TrailMap() {
         let trailUpdated = []
 
         setElevationsRequested(false)
-        setcueUpPointss(oldCues => [
-            ...oldCues, [newPosition.lat, newPosition.lng]
-        ])
+        if(!hasKey(newPosition.lat, newPosition.lng)){
+            setCueUpPoints(oldCues => [
+                ...oldCues, [newPosition.lat, newPosition.lng]
+            ])
+        }else{
+            console.log(dumpCacheHits());
+        }
 
         setTrailCurrent(trailIndex)
 
@@ -73,8 +78,8 @@ function TrailMap() {
                         // Add all trail points to the Cue
                         const newCues = formPolyline(trail)
 
-                        // Add points int  the setcueUpPointss
-                        setcueUpPointss(oldCues => [
+                        // Add points int  the setcueUpPoints
+                        setCueUpPoints(oldCues => [
                             ...oldCues, ...newCues
                         ])
                     })
@@ -111,7 +116,7 @@ function TrailMap() {
                 ...prevElevations,
                 ...cuesData
             }));
-            setcueUpPointss([]);
+            setCueUpPoints([]);
         })();
     }, [cueUpPoints]);
 
@@ -130,6 +135,10 @@ function TrailMap() {
                 const point = trail.points.find(p => p.position.lat === elevations[key].pointID.lat && p.position.lng === elevations[key].pointID.lng);
                 if (point) {
                     point.elevation = elevations[key].elevation;
+                    insertKey(
+                        `elevation_${elevations[key].pointID.lat}_${elevations[key].pointID.lng}`, 
+                        elevations[key].elevation
+                    );  
                 }
             };
             return { ...trail, points: updatedPoints };
