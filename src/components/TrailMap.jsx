@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Popup, Polyline } from 'react-leaflet'
 import HeightProfile from './HeightProfile/HeightProfile';
 import TrailPOI from './TrailPOI/TrailPOI';
@@ -6,88 +6,36 @@ import TrailPOI from './TrailPOI/TrailPOI';
 import { fetchTrails, polyOptions, formPolyline, fetchElevationData, craftTrailHeightProfile } from "./Trail";
 
 
-
 function TrailMap() {
 
-  
-    const defaultTrailIndex = 0
+    const isPassedStartRun =  useRef(false)
 
+    const defaultTrailIndex = 0
 
     const [trails, setTrails] = useState([]);
     const [polylines, setPolylines] = useState([])
     const [trailCurrent, setTrailCurrent] = useState(0);
     const [trailHeightProfile, setTrailHeightProfile] = useState()
     const [elevations, setElevations] = useState({});
-    // let asked = false
+    const [elevationsRequested, setElevationsRequested] = useState(false)
 
-    const [cueUpPoint, setCueUpPoints] = useState([
-        [43.1750786565768, 19.084473699409727],
-        [43.17349202, 19.086744943999975]
-    ])
+    const [cueUpPoints, setcueUpPointss] = useState([])
 
     const selectTrail = (index) => {
         setTrailCurrent(index);       
     }
 
-    // TODO: Function to fetch elevation data for a set of points
-    // TODO: Make with RETURN and no outside consts, move to trails.jsx
-    // const fetchElevationData = async (points) => {
-
-    //     let asked = false
-
-
-    //     const doElevationRequesting = true
-    //     const pointToQuery = cueUpPoint
-
-    //     if (pointToQuery.length === 0) return
-
-    //     let batchRequestUrlString = ''
-    //     pointToQuery.forEach(point => {
-    //         batchRequestUrlString += `${point[0]},${point[1]}|`
-    //     });
-
-    //     try {
-    //         // REST point to get elevetion for the ask point
-    //         if (!doElevationRequesting) {
-    //             setElevations(Number(1781 + Math.random() * 10));
-    //             return
-    //         }
-
-    //         const url = `http://localhost:80/durm-mtb-proj/api/request_proxy.php?request_type=elevation&points=${batchRequestUrlString}`;
-
-    //         // Prevent free API error - 429 Too Many Requests
-    //         if (asked) return
-    //         fetch(url)
-    //             .then((response) => response.json())
-    //             .then((data) => {
-
-    //                 const reducedData = data.result.reduce((accum, value, index) => {
-    //                     accum.push([index, value.elevation]);
-    //                     return accum;
-    //                 }, []);
-
-    //                 // setElevations(prevElevations => ({
-    //                 //     ...prevElevations, ...reducedData
-    //                 // }));
-
-    //             })
-    //             .catch((error) => console.log(error));
-    //         console.log(elevations);
-
-    //         // return data;
-    //     } catch (error) {
-    //         console.error('Failed to fetch elevation data', error);
-    //     }
-    //     asked = true
-    // };
-
     // TrailPOI marked position edited callback
     const handleTrailPOIChange = (trailIndex, index, newPosition) => {
 
-        setTrailCurrent(trailIndex)
-
         let trailUpdated = []
-        // console.log("How is sel:", trailIndex);
+
+        setElevationsRequested(false)
+        setcueUpPointss(oldCues => [
+            ...oldCues, [newPosition.lat, newPosition.lng]
+        ])
+
+        setTrailCurrent(trailIndex)
 
         setTrails(prevTrails => {
             const prevTrailsArray = prevTrails.trails;
@@ -103,52 +51,98 @@ function TrailMap() {
             newPolies[trailIndex] = updatedPolyline; // replace the old polyline with the updated one
             return newPolies;
         })
-
     };
 
     // Get Trails data
     useEffect(() => {
 
         if (typeof trails.trails !== "undefined") return
+        if (isPassedStartRun.current === true) return
 
-        fetchTrails().then(data => {
-            try {
+        // FIXME: still multy calls
+        if(!elevationsRequested) {
 
-                const parsed = JSON.parse(data.result)
-                setTrails(parsed)
+            fetchTrails().then(data => {
 
-                parsed.trails.forEach(trail => {
-                    // setElevations(fetchElevationData(trail));
-                    const data = fetchElevationData(cueUpPoint)
+                try {
+                    const parsed = JSON.parse(data.result)
+                    setTrails(parsed)
 
-                    setElevations(prevElevations => ({
-                        ...prevElevations, ...data
-                    }));
+                    parsed.trails.forEach(trail => {
+
+                        // Add all trail points to the Cue
+                        const newCues = formPolyline(trail)
+
+                        // Add points int  the setcueUpPointss
+                        setcueUpPointss(oldCues => [
+                            ...oldCues, ...newCues
+                        ])
+                    })
+                } catch (error) {
+                    console.error('Failed: ', error);
+                }
+                setElevationsRequested(true)
+            });
+
+            // Polyline crafting at start
+            if (trails.trails) {
+                setPolylines((oldPolies) => {
+                    const newPolies = oldPolies
+                    trails.trails.forEach((trail) => {
+                        newPolies.push(formPolyline(trail))
+                    })
+                    return newPolies
                 })
 
-            } catch (error) {
-                console.error('Failed: ', error);
+                setTrailHeightProfile(craftTrailHeightProfile(trails.trails[trailCurrent]))
             }
-        });
-
-        // Polyline crafting at start
-        if (trails.trails) {
-            setPolylines((oldPolies) => {
-                const newPolies = oldPolies
-                trails.trails.forEach((trail) => {
-                    newPolies.push(formPolyline(trail))
-                })
-                return newPolies
-            })
-
-            setTrailHeightProfile(craftTrailHeightProfile(trails.trails[trailCurrent]))
         }
 
-    }, []);
-    
-    // Trails object change handling
+        isPassedStartRun.current = true
+    }, [elevationsRequested]);
+
+    // cueUpPoints updated
+    useEffect(() => {
+        if (cueUpPoints.length === 0) return;
+
+        (async () => {
+            const cuesData = await fetchElevationData(cueUpPoints);
+            setElevations(prevElevations => ({
+                ...prevElevations,
+                ...cuesData
+            }));
+            setcueUpPointss([]);
+        })();
+    }, [cueUpPoints]);
+
+    // elevations updated
     useEffect(() => {
 
+        if (typeof elevations === "undefined") return
+        if (typeof trails.trails === "undefined") return
+
+        let updatedTrails = { ...trails };
+        const newTrails = updatedTrails.trails.map(trail => {
+            let updatedPoints = [...trail.points];
+            for (const key in elevations) {
+
+                // Fine a point in the trails, add a elevation to it
+                const point = trail.points.find(p => p.position.lat === elevations[key].pointID.lat && p.position.lng === elevations[key].pointID.lng);
+                if (point) {
+                    point.elevation = elevations[key].elevation;
+                }
+            };
+            return { ...trail, points: updatedPoints };
+        });
+
+        // Update trails points
+        updatedTrails.trails = newTrails;
+        setTrails(updatedTrails);
+
+    }, [elevations])
+
+    // Trails object change handling
+    useEffect(() => {
         if (trails.trails) {
             setPolylines((oldPolies) => {
                 const newPolies = []
@@ -158,7 +152,6 @@ function TrailMap() {
                 return newPolies
             })
         }
-
     }, [trails.trails]);
 
     // Active trail change handling
@@ -167,9 +160,9 @@ function TrailMap() {
             setTrailHeightProfile(craftTrailHeightProfile(trails.trails[trailCurrent]))
         }
 
-    }, [trailCurrent])
+    }, [trailCurrent, trails.trails])
 
- 
+
     return (
         <div>
             <MapContainer center={[43.174051999, 19.085094199]} style={{ height: "45vh" }} zoom={16} scrollWheelZoom={false}>
@@ -181,7 +174,7 @@ function TrailMap() {
 
                 {trails.trails &&
                     trails.trails.map((trailData, indexT) => (
-                       
+
 
                         <div key={`trail-${indexT}`}>
 
@@ -215,7 +208,7 @@ function TrailMap() {
             </MapContainer>
 
             <button
-                onClick={() => fetchElevationData(trails[0])}>
+                onClick={() => fetchElevationData(trails[trailCurrent])}>
                 Sync
             </button>
 
@@ -229,4 +222,3 @@ function TrailMap() {
 }
 
 export default TrailMap;
-
