@@ -1,10 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MapContainer, TileLayer, Popup, Polyline } from 'react-leaflet'
+// import L from "leaflet";
+// import { VectorGrid } from 'leaflet.vectorgrid';
+import { MapContainer, TileLayer, LayersControl, Polyline } from 'react-leaflet'
+
 import HeightProfile from './HeightProfile/HeightProfile';
 import TrailPOI from './TrailPOI/TrailPOI';
 
+import VectorTileLayer from './VectorTileLayer';
+
 import { fetchTrails, polyOptions, formPolyline, fetchElevationData, craftTrailHeightProfile } from "./Trail";
 import { dumpCache, dumpCacheHits, insertKey, hasKey } from '../utils/cache';
+
 
 
 function TrailMap() {
@@ -171,15 +177,98 @@ function TrailMap() {
 
     }, [trailCurrent, trails.trails])
 
+    const OPNVKarteApiKey = null
+    const OPNVKarteURL = (OPNVKarteApiKey) 
+        ? `https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png?apikey=${OPNVKarteApiKey}` 
+        : "https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png"
+
+    const thunderApiKey = process.env.REACT_APP_THUNDERFOREST_API_KEY_1;
+    const thunderURL = (thunderApiKey) 
+        ? `https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=${thunderApiKey}` 
+        : "https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?"
+
+    const url =
+        "https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer/tile/{z}/{y}/{x}.pbf";
+
+   
+        // const vectorTileOptions = {
+    //     rendererFactory: L.canvas.tile,
+    //     attribution: "Esri, HERE, Garmin, FAO, NOAA, USGS, EPA",
+    // };
 
     return (
         <div>
             <MapContainer center={[43.174051999, 19.085094199]} style={{ height: "45vh" }} zoom={16} scrollWheelZoom={false}>
 
-                <TileLayer
+                {/* <TileLayer
                     attribution='🔠 &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
+                /> */}
+
+                <LayersControl position="topright">
+                    <LayersControl.BaseLayer name="Default" checked>
+                        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                    </LayersControl.BaseLayer>
+                    
+                    <LayersControl.BaseLayer name="OpenTopoMap">
+                        <TileLayer url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png" />
+                    </LayersControl.BaseLayer>
+
+                    <LayersControl.BaseLayer name="CyclOSM">
+                        <TileLayer url="https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png" />
+                    </LayersControl.BaseLayer>
+
+                    <LayersControl.BaseLayer name="Cycle Map">
+                        <TileLayer url="http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png" />
+                    </LayersControl.BaseLayer>
+
+                    <LayersControl.BaseLayer name="ArcGIS World Imagery">
+                        <TileLayer
+                            url="https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+                            attribution='Map data &copy; <a href="https://www.esri.com/en-us/home">ESRI</a>'
+                        />
+                    </LayersControl.BaseLayer>
+                    
+                    <LayersControl.BaseLayer name="ArcGIS Navigation">
+                        <TileLayer
+                            url="https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer/tile/{z}/{y}/{x}.pbf"
+                            attribution='Map data &copy; <a href="https://www.esri.com/en-us/home">ESRI</a>'
+                        />
+                    </LayersControl.BaseLayer>
+
+
+                    <LayersControl.BaseLayer name="ArcGIS Topographic">
+                        <TileLayer
+                            url="https://services.arcgisonline.com/arcgis/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}"
+                            attribution='Map data &copy; <a href="https://www.esri.com/en-us/home">ESRI</a>'
+                        />
+                    </LayersControl.BaseLayer>
+
+                    <LayersControl.BaseLayer name="Humanitarian">
+                        <TileLayer url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png" />
+                    </LayersControl.BaseLayer>
+                    <LayersControl.BaseLayer name="ÖPNVKarte">
+                        <TileLayer url={OPNVKarteURL} />
+                    </LayersControl.BaseLayer>
+                    
+                    <LayersControl.BaseLayer name="Transport Map">
+                        <TileLayer url={thunderURL} />
+                    </LayersControl.BaseLayer>
+
+                    
+                    <LayersControl.BaseLayer name="Esri WorldTerrain">
+                        <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}" />
+                    </LayersControl.BaseLayer>
+                    
+                    <LayersControl.BaseLayer name="Esri WorldStreetMap">
+                        <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}" />
+                    </LayersControl.BaseLayer>
+                    
+                    <LayersControl.BaseLayer name="Esri WorldShadedRelief">
+                        <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}" />
+                    </LayersControl.BaseLayer>
+                </LayersControl>
+               
 
                 {trails.trails &&
                     trails.trails.map((trailData, indexT) => (
