@@ -18,23 +18,23 @@ import VectorLayer from './VectorLayer';
 
 
 
-function Square(props) {
-    const context = useLeafletContext()
+// function Square(props) {
+//     const context = useLeafletContext()
 
-    useEffect(() => {
-        const bounds = L.latLng(props.center).toBounds(props.size)
-        const square = new L.Rectangle(bounds)
-        const container = context.layerContainer || context.map
-        container.addLayer(square)
+//     useEffect(() => {
+//         const bounds = L.latLng(props.center).toBounds(props.size)
+//         const square = new L.Rectangle(bounds)
+//         const container = context.layerContainer || context.map
+//         container.addLayer(square)
 
-        return () => {
-            container.removeLayer(square)
-        }
-    })
+//         return () => {
+//             container.removeLayer(square)
+//         }
+//     })
 
-    return null
-}
-const center = [43.173956457, 19.085725581]
+//     return null
+// }
+// const center = [43.173956457, 19.085725581]
 
 function TrailMap() {
     
@@ -225,16 +225,37 @@ function TrailMap() {
         <div>
             <MapContainer ref={Map => mapL = Map} center={[43.174051999, 19.085094199]} style={{ height: "45vh" }} zoom={16} scrollWheelZoom={false}>
 
+                {/* <Square center={center} size={1000} /> */}
 
-                <Square center={center} size={1000} />
-
-
-                    {/* <TileLayer
-                        attribution='🔠 &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    /> */}
+                <TileLayer
+                    attribution='🔠 &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
  
-        
+                <LayersControl position="topright">
+
+                    <LayersControl.BaseLayer name="Default" checked>
+                        <TileLayer
+                            attribution='🔠 &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                    </LayersControl.BaseLayer>
+
+                   
+
+
+                    <LayersControl.BaseLayer name="Esri WorldTerrain">
+                        <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}" />
+                    </LayersControl.BaseLayer>
+
+                    <LayersControl.BaseLayer name="Esri WorldStreetMap">
+                        <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}" />
+                    </LayersControl.BaseLayer>
+
+                    <LayersControl.BaseLayer name="Esri WorldShadedRelief">
+                        <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}" />
+                    </LayersControl.BaseLayer>
+                </LayersControl>
                
 
                 {trails.trails &&
