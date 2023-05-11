@@ -11,14 +11,21 @@ export interface TileLayerProps extends TileLayerOptions, LayerProps {
   url: string
 }
 
-export const TileLayer = createTileLayerComponent<
+
+
+export const TileLayerCus = createTileLayerComponent<
   LeafletTileLayer,
   TileLayerProps
 >(
   function createTileLayer({ url, ...options }, context) {
-    const layer = new LeafletTileLayer(url, withPane(options, context))
+    const layer = L.vectorGrid.protobuf(url, {
+      // pane: 'tilePane',
+      rendererFactory: L.canvas.tile,
+      ...options,
+    })
     return createElementObject(layer, context)
   },
+  
   function updateTileLayer(layer, props, prevProps) {
     updateGridLayer(layer, props, prevProps)
 
