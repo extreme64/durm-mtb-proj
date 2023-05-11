@@ -32,13 +32,13 @@ View height profile of a trail when clicked on, with adjustable resolution
 ## **Technologies Used**
 
 - React
-- React Leaflet / Leaflet
+- React Leaflet 
+- Leaflet
+- Leaflet.VectorGrid 
 - Chart.js v3
-- Open Topo Data
 - OpenStreetMap
-- Webpack
-- Babel
-- Jest
+- Open Topo Data
+
 
 <!-- Installation and Usage
 To install the application, follow these steps:
