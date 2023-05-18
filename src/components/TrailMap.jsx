@@ -48,6 +48,8 @@ function TrailMap() {
     const [elevations, setElevations] = useState({});
     const [elevationsRequested, setElevationsRequested] = useState(false)
 
+    const [layers, setlayers] = useState([])
+
     const [cueUpPoints, setCueUpPoints] = useState([])
 
     const selectTrail = (index) => {
@@ -85,6 +87,24 @@ function TrailMap() {
             return newPolies;
         })
     };
+
+    const fetchlayers = async () => {
+        try {
+            const response = await fetch("http://localhost:80/durm-mtb-proj/api/request_proxy.php?request_type=layers");
+            const parsed = await response.json();
+            return parsed;         
+        } catch (error) {
+            console.error('Failed to fetch layers', error);
+        }
+    }
+    
+    useEffect(() =>  {
+        fetchlayers().then(layers =>{
+            const layersInfo = JSON.parse(layers.result)
+            setlayers(layersInfo)
+        })
+    }, [])
+
 
     // Get Trails data
     useEffect(() => {
@@ -211,19 +231,58 @@ function TrailMap() {
 
 
 
+    const layerApiKeys = [
+        {
+            "LayerId": 1,
+            "api": process.env.REACT_APP_OPNV_KARTE_API_KEY_1,
+        },
+        {
+            "LayerId": 2,
+            "api": process.env.REACT_APP_THUNDERFOREST_API_KEY_1,
+        },
+        {
+            "LayerId": 3,
+            "api": process.env.REACT_APP_MAPTILER_API_KEY_1
+        }
+    ]
+
     return (
         <div>
             <MapContainer ref={Map => mapL = Map} center={[43.174051999, 19.085094199]} style={{ height: "45vh" }} zoom={16} scrollWheelZoom={false}>
 
                 {/* <Square center={center} size={1000} /> */}
 
-                {/* TODO: switch active for vector layers */}
+                {/* TODO: Create LayersControl component */}
+                {/* TODO: Switch active for vector layers, as bg. tiles */}
                 <TileLayer
                     attribution='🔠 &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
  
                 <LayersControl position="topright">
+
+                    {/* 
+                    TODO: Add apiKeys, 
+                    TODO: Add tile type */}
+                    {layers.map((element, layInd) => {
+                        return (
+                            <LayersControl.BaseLayer
+                                key={"layer" + element.id + 1}
+                                id={element.id + 1}
+                                name={element.name}>
+                                <TileLayerCus url={element.url}
+                                    attribution={element.attrib}
+                                    vectorTileLayerStyles={element.style} />
+                            </LayersControl.BaseLayer>
+                        )
+                    })}
+
+                    {/* ----------------------------- */}
+
+
+
+
+                    
 
                     <LayersControl.BaseLayer name="Default" checked>
                         <TileLayer

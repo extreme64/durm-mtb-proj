@@ -109,7 +109,6 @@ switch ($requestType) {
             opcache_invalidate('./data/trailsDataGPS.json', false);
         } 
 
-        // Check if file exists
         if (file_exists($json_file)) {
             
             $trailsData = file_get_contents($json_file);
@@ -120,6 +119,26 @@ switch ($requestType) {
             $error = array('error' => 'File not found.');
             $responseData = $error;
         }
+        break;
+
+    case 'layers':
+
+        $json_file = './data/mapTileLayers.json';
+
+        if (isset($_GET['clear'])) {
+            opcache_invalidate($json_file, false);
+        }
+
+        if (file_exists($json_file)) {
+            $layersData = file_get_contents($json_file);
+            $layersData = str_replace("\r\n", "\n", $layersData);
+
+            $responseData = ['result' => $layersData];
+        } else {
+            $error = array('error' => 'File not found.');
+            $responseData = $error;
+        }
+
         break;
 
     case 'traffic':

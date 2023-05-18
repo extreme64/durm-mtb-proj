@@ -1,0 +1,113 @@
+[
+    {
+        "id": 1,
+        "name": "Default Bachground",
+        "url": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        "attrib": "🔠 &copy; <a href='https: //www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
+        "style": "..."
+    },
+    {
+        "id": 2,
+        "name": "Default",
+        "url": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        "attrib": "🔠 &copy; <a href='https: //www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
+        "style": "..."
+    },
+    {
+        "id": 3,
+        "name": "++ maptiler contours ++",
+        "url": "https://api.maptiler.com/tiles/contours/{z}/{x}/{y}.pbf?key=",
+        "keyNeeded": true,
+        "attrib": "MAST_G",
+        "style": "{{ sliced: { weight: 1, color: 'pink' } }}"
+    },
+    {
+        "id": 4,
+        "name": "++ maptiler streets ++",
+        "url": "https://api.maptiler.com/maps/streets-v2/256/{z}/{x}/{y}.png?key=",
+        "keyNeeded": true,
+        "attrib": "MAST_G",
+        "style": "..."
+    },
+    {
+        "id": 5,
+        "name": "++ CUS ++",
+        "url": "https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer/tile/{z}/{y}/{x}.pbf",
+        "attrib": "MAST_G",
+        "style": "{{ sliced: { weight: 1, color: 'pink' } }}"
+    },
+    {
+        "id": 6,
+        "name": "ArcGIS World Imagery",
+        "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        "attrib": "Map data &copy; <a href='https: //www.esri.com/en-us/home'>ESRI</a>",
+        "style": "..."
+    },
+    {
+        "id": 7,
+        "name": "ArcGIS Topographic",
+        "url": "https://sMap data &copy; <a href='https: //www.esri.com/en-us/home'>ESRI</a>",
+        "style": "..."
+    },
+    {
+        "id": 8,
+        "name": "Esri WorldTerrain",
+        "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}",
+        "attrib": "Esri",
+        "style": "..."
+    },
+    {
+        "id": 9,
+        "name": "Esri WorldStreetMap",
+        "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+        "attrib": "Esri",
+        "style": "..."
+    },
+    {
+        "id": 10,
+        "name": "Esri WorldShadedRelief",
+        "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}",
+        "style": "..."
+    },
+    {
+        "id": 11,
+        "name": "OpenTopoMap",
+        "url": "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+        "attrib": "OpenTopo",
+        "style": "..."
+    },
+    {
+        "id": 12,
+        "name": "CyclOSM",
+        "url": "https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png",
+        "attrib": "openstreetmap",
+        "style": "..."
+    },
+    {
+        "id": 13,
+        "name": "Cycle Map",
+        "url": "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png",
+        "style": "opencyclemap"
+    },
+    {
+        "id": 14,
+        "name": "Humanitarian",
+        "url": "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
+        "attrib": "openstreetmap",
+        "style": "..."
+    },
+    {
+        "id": 15,
+        "name": "ÖPNVKarte",
+        "url": "https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png?apikey=",
+        "keyNeeded": true,
+        "attrib": "thunderforest",
+        "style": "..."
+    },
+    {
+        "id": 16,
+        "name": "Transport Map",
+        "url": "https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=",
+        "style": "thunderforest"
+    }
+]
